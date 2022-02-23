@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<nav>
+    <div id="sidebar">
+        {% block sidebar %}
+            <ul>
+                {% for li in liList %}
+                    <li><a href="">{{ li }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endblock %}
+    </div>
+</nav>
+
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+{% endblock %}

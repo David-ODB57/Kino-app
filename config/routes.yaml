@@ -1,0 +1,14 @@
+
+# index:
+#     path: /
+#     controller: App\Controller\DefaultController::index
+
+# test:
+#     path: /test
+#     controller: App\Controller\DefaultController::test
+
+# profile:
+#     path: /profile/{id}
+#     controller: App\Controller\DefaultController::profile
+#     defaults:
+#       id: plop
