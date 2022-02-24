@@ -9,11 +9,11 @@
         <tbody>
             <tr>
                 <th>Séances</th>
-                <td>{{ seance.id}}</td>
+                <td>{{ seance.film.title}}</td>
             </tr>
             <tr>
                 <th>Date de début</th>
-                <td>{{ seance.dateDebut ? seance.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ seance.dateDebut ? seance.dateDebut|date('d/m/y H:i') : '' }}</td>
             </tr>
             <tr>
                 <th>Langue</th>
@@ -21,11 +21,11 @@
             </tr>
             <tr>
                 <th>CreatedAt</th>
-                <td>{{ seance.createdAt ? seance.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ seance.createdAt ? seance.createdAt|date('d/m/y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>UpdatedAt</th>
-                <td>{{ seance.updatedAt ? seance.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ seance.updatedAt ? seance.updatedAt|date('d/m/y H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
