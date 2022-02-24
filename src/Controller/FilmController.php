@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Films;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class FilmController extends AbstractController
 {
@@ -22,7 +26,9 @@ class FilmController extends AbstractController
             ->add("title", TextType::class)
             ->add("director", TextType::class)
             ->add("gender", TextType::class)
-            ->add("description", TextType::class)
+            ->add('duree', NumberType::class)
+            ->add("description", TextareaType::class)
+            ->add('status', TextType::class)
             ->add("image", TextType::class)
             ->add("save", SubmitType::class, ['label' => 'Créer'])
             ->getForm();
@@ -31,12 +37,14 @@ class FilmController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
+            
             $film = $form->getData();
-
+            $film->setCreatedAt(new DateTimeImmutable("now"));
+            $film->setUpdatedAt(new DateTime("now"));
             $entityManager = $doctrine->getManager();
             $entityManager->persist($film);
             $entityManager->flush();
-
+            
             return $this->redirectToRoute('listingFilms');
         }
         $isEditor = false;
@@ -68,6 +76,10 @@ class FilmController extends AbstractController
             ->add("title", TextType::class)
             ->add("director", TextType::class)
             ->add("gender", TextType::class)
+            ->add('duree', NumberType::class)
+            ->add('description', TextareaType::class)
+            ->add('status', TextType::class)
+            ->add('image', TextType::class)
             ->add("save", SubmitType::class, ['label' => 'Update'])
             ->getForm();
 
@@ -76,7 +88,7 @@ class FilmController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
 
             $film = $form->getData();
-
+            
             $entityManager->persist($film);
             $entityManager->flush();
 
@@ -90,10 +102,6 @@ class FilmController extends AbstractController
     public function listing(ManagerRegistry $doctrine): Response 
     {
         $listing = $doctrine->getManager()->getRepository(Films::class)->findAll();
-
-        if (!$listing) {
-            throw $this->createNotFoundException('Pas de films disponible ');
-        }
 
         return $this->render("films.html.twig", ["films" => $listing]);
     }

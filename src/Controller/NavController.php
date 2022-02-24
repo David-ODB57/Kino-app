@@ -17,15 +17,6 @@ class NavController extends AbstractController {
      * @Route("/films", name="films")
      */
     function films() {
-        // $films = [
-        //             "Les Dents de la mer",
-        //             "Shining",
-        //             "Ghostbusters",
-        //             "Chucky",
-        //             "Star Wars",
-        //             "Indiana Jones"
-        // ];
-        // return $this->render('films.html.twig', ["films" => $films]);
         return $this->render('films.html.twig');
     }
 
@@ -33,6 +24,6 @@ class NavController extends AbstractController {
      * @Route("/seances", name="seances")
      */
     function seances() {
-        return $this->render('films.html.twig');
+        return $this->render('seances.html.twig');
     }
 }

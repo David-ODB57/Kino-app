@@ -14,7 +14,9 @@
     {{ form_row(form.title, {'label': 'Title', 'required': false}) }}
     {{ form_row(form.director, {'label': 'Director'}) }}
     {{ form_row(form.gender, {'label': 'Gender'}) }}
+    {{ form_row(form.duree, {'label': 'Durée(mn)'}) }}
     {{ form_row(form.description, {'label': 'synopsis'}) }}
+    {{ form_row(form.status, {'label': 'Status'}) }}
     {{ form_row(form.image, {'label': 'image'}) }}
 
     {% if (isEditor) %}

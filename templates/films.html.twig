@@ -5,14 +5,17 @@
 <h1>liste des films</h1>
  <div id="content">
     {% if films|length == 0 %}
-        Pas de films disponible
+    <div class="message">
+        <span class="error">Désolé,</span>
+        <span class="error">pas de film disponible</span>
+    </div>
     {% endif %}
 
     {% for film in films %}
     <div class="box">
         <div class="imgBox">
             <a href=" {{ path('resume_film', {'id': film.id}) }}">
-                <img src="{{ asset('img/ddlm.jpg') }}" alt="{{ film.title }}">
+                <img src="{{ asset('img/'~film.image~'') }}" alt="{{ film.title }}">
             </a>
         </div>
         <div class="content">

@@ -88,7 +88,7 @@ body {
     bottom: -2px;
     background: #FFF;
     z-index: -2;
-    filter: blur(40px);
+    filter: blur(20px);
 }
 
 .box:nth-child(odd):before, .box:nth-child(even):after {
@@ -172,6 +172,11 @@ nav a {
     font-weight: 600;
 }
 
+nav a:hover {
+    color: #89ff00;
+    transition: 0.5s;
+}
+
 .menu {
     position: relative;
 }
@@ -207,7 +212,7 @@ form div {
 }
 
 label {
-    color: #ff005e;
+    color: #89ff00;
 }
 
 form button {
@@ -248,3 +253,35 @@ form div ul li {
     justify-content: center;
     align-items: center;
 }
+
+div.message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+span.error {
+    font-size: 48px;
+    color: #ff005e;
+}
+
+.table {
+    border-collapse: collapse;
+  width: 100%;
+  padding: 1em;
+}
+
+.table td, .table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+tr:nth-child(odd){background-color: #89ff00;}
+tr:nth-child(even){background-color: #adc178;}
+tr:hover {background-color: #ddd;}
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
