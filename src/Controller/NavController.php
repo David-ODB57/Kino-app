@@ -17,15 +17,16 @@ class NavController extends AbstractController {
      * @Route("/films", name="films")
      */
     function films() {
-        $films = [
-                    "Les Dents de la mer",
-                    "Shining",
-                    "Ghostbusters",
-                    "Chucky",
-                    "Star Wars",
-                    "Indiana Jones"
-        ];
-        return $this->render('films.html.twig', ["films" => $films]);
+        // $films = [
+        //             "Les Dents de la mer",
+        //             "Shining",
+        //             "Ghostbusters",
+        //             "Chucky",
+        //             "Star Wars",
+        //             "Indiana Jones"
+        // ];
+        // return $this->render('films.html.twig', ["films" => $films]);
+        return $this->render('films.html.twig');
     }
 
     /**

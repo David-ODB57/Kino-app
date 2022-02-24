@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un film{% endblock %}
+
+{% block body %}
+
+{% if (isEditor) %}
+    <h1>Formulaire d'edition</h1>
+{% else %}
+    <h1>Formulaire d'ajout</h1>
+{% endif %}
+
+{{ form_start(form) }}
+    {{ form_row(form.title, {'label': 'Title', 'required': false}) }}
+    {{ form_row(form.director, {'label': 'Director'}) }}
+    {{ form_row(form.gender, {'label': 'Gender'}) }}
+    {{ form_row(form.description, {'label': 'synopsis'}) }}
+    {{ form_row(form.image, {'label': 'image'}) }}
+
+    {% if (isEditor) %}
+        {{ form_row(form.save, {'label': 'Edit'}) }}
+    {% else %}
+        {{ form_row(form.save, {'label': 'Save'}) }}
+    {% endif %}
+{{ form_end(form) }}
+{% endblock %}

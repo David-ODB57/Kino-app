@@ -6,6 +6,7 @@
     --color-title: #EFD3D7;
     --color-sub-title: black;
     --color-navbar-link: #6C584C;
+    --color-navLink: #ADC178;
     --first-gradient: linear-gradient(235deg, #89ff00, #010615, #00bcd4);
     --second-gradient: linear-gradient(235deg, #ff005e, #010615, #fbff00);
     --third-gradient: linear-gradient(235deg, #772aff, #010615, #2196f3);
@@ -44,7 +45,7 @@ body {
 }
 
 .box:hover {
-    height: 500px;
+    height: 550px;
 }
 
 .box .imgBox {
@@ -100,11 +101,10 @@ body {
 
 .box .content {
     position: absolute;
-    /* top: 10px; */
     left: 10px;
     right: 10px;
     bottom: 0;
-    height: 70px;
+    height: 90px;
     background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
@@ -133,12 +133,10 @@ body {
 
 
 nav {
-    /* display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: var(--color-nav); */
-    position: relative;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
 }
 
 h1 {
@@ -154,36 +152,35 @@ nav img {
 }
 .logo {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
 .logo span {
+    font-size: 1.3em;
+    font-weight: 500;
     color: #fff;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px;
+    margin-left: 5px;
 }
 
 nav a {
     position: relative;
     margin: 0 20px;
-    color: var(--color-navbar-link);
+    color: var(--color-navLink);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 1.3em;
     font-weight: 600;
 }
 
+.menu {
+    position: relative;
+}
+
 #marker {
     position: absolute;
     left: 0;
-    height: 4px;
     width: 0;
+    height: 4px;
     background: #89ff00;
     bottom: -4px;
     transition: 0.5s;
@@ -193,4 +190,61 @@ nav a {
 
 #list {
     flex-direction: column;
+}
+
+form {
+    margin: 1em 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+label {
+    color: #ff005e;
+}
+
+form button {
+    padding: 5px 15px;
+    font-size: 1em;
+}
+
+form div ul li {
+    list-style-type: none;
+    color: #ff005e;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#resume {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+#resume .imgBox img {
+    max-height: 300px;
+}
+
+#resume .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

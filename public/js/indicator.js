@@ -7,7 +7,7 @@ function indicator (e) {
 }
 
 links.forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('mouseover', (e) => {
         indicator(e.target);
     })
 })
