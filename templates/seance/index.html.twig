@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th>Séances</th>
+                    <th>Salles</th>
                     <th>Date de début</th>
                     <th>Langue</th>
                     <th>CreatedAt</th>
@@ -21,6 +22,7 @@
             {% for seance in seances %}
                 <tr>
                     <td>{{ seance.film.title  }}</td>
+                    <td>{{ seance.salle.id  }}</td>
                     <td>{{ seance.dateDebut ? seance.dateDebut|date('Y-m-d H:i') : '' }}</td>
                     <td>{{ seance.langue }}</td>
                     <td>{{ seance.createdAt ? seance.createdAt|date('Y-m-d H:i:s') : '' }}</td>

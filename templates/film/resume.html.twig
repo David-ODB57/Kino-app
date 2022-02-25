@@ -7,11 +7,11 @@
 <div class="container">
     <div id="resume">
         {% if film|length == 0 %}
-            Pas d'info disponible'
+            Pas d'info disponible.
         {% endif %}
 
         <div class="imgBox">
-            <img src="{{ asset('img/ddlm.jpg') }}" alt="{{ film.title }}">
+            <img src="{{ asset('img/'~film.image~'') }}" alt="{{ film.title }}">
         </div>
         <div class="content">
             <h2>{{ film.title }}</h2>
@@ -19,6 +19,12 @@
             <span>Genre: {{ film.gender }}</span>
             <span>Synopsis: </span>
             <p>{{ film.description }}</p>
+        </div>
+        <div class="seances">
+            {% for seance in seances %}
+                <span><u>Seance:</u> {{ seance.dateDebut|date('Y-m-d H:i') }}</span>
+                <span class="salle">Salle {{ seance.salle.id }}</span>
+            {% endfor %}
         </div>
     </div>
 </div>

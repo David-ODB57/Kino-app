@@ -23,6 +23,10 @@ class Seance
     #[ORM\JoinColumn(nullable: false)]
     private $film;
 
+    #[ORM\ManyToOne(targetEntity: Salle::class, inversedBy: 'seances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $salle;
+
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
 
@@ -66,6 +70,17 @@ class Seance
     public function setFilm(?Films $film): self
     {
         $this->film = $film;
+
+        return $this;
+    }
+    public function getSalle(): ?Salle
+    {
+        return $this->salle;
+    }
+
+    public function setSalle(?Salle $salle): self
+    {
+        $this->salle = $salle;
 
         return $this;
     }

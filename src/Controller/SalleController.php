@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Salle;
 use App\Form\SalleType;
 use App\Repository\SalleRepository;
+use App\Repository\SeanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class SalleController extends AbstractController
 {
     #[Route('/', name: 'salle_index', methods: ['GET'])]
-    public function index(SalleRepository $salleRepository): Response
+    public function index(SalleRepository $salleRepository, SeanceRepository $seanceRepository): Response
     {
         return $this->render('salle/index.html.twig', [
             'salles' => $salleRepository->findAll(),
+            'seance' => $seanceRepository->findAll(),
         ]);
     }
 

@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Films;
+use App\Entity\Seance;
+use App\Repository\SeanceRepository;
 use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,7 +31,12 @@ class FilmController extends AbstractController
             ->add("gender", TextType::class)
             ->add('duree', NumberType::class)
             ->add("description", TextareaType::class)
-            ->add('status', TextType::class)
+            ->add('status', ChoiceType::class, [
+                'choices'  => [
+                    'Dispo' => true,
+                    'Non disponible' => false,
+                ],
+            ])
             ->add("image", TextType::class)
             ->add("save", SubmitType::class, ['label' => 'Créer'])
             ->getForm();
@@ -45,7 +53,7 @@ class FilmController extends AbstractController
             $entityManager->persist($film);
             $entityManager->flush();
             
-            return $this->redirectToRoute('listingFilms');
+            return $this->redirectToRoute('accueil');
         }
         $isEditor = false;
 
@@ -64,7 +72,7 @@ class FilmController extends AbstractController
             $film = $entityManager->getRepository(Films::class)->find($id);
 
             if(!isset($film)) {
-                return $this->redirectToRoute('listingFilms');
+                return $this->redirectToRoute('accueil');
             }
 
             $isEditor = true;
@@ -78,7 +86,12 @@ class FilmController extends AbstractController
             ->add("gender", TextType::class)
             ->add('duree', NumberType::class)
             ->add('description', TextareaType::class)
-            ->add('status', TextType::class)
+            ->add('status', ChoiceType::class, [
+                'choices'  => [
+                    'Disponible' => 'disponible',
+                    'Non disponible' => 'non disponible',
+                ],
+            ])
             ->add('image', TextType::class)
             ->add("save", SubmitType::class, ['label' => 'Update'])
             ->getForm();
@@ -92,18 +105,18 @@ class FilmController extends AbstractController
             $entityManager->persist($film);
             $entityManager->flush();
 
-            return $this->redirectToRoute('listingFilms');
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('film/create.html.twig', ['form' => $form->createView(), 'isEditor' => $isEditor]);
     }
 
-    #[Route('/films', name: 'listingFilms')]
+    #[Route('/', name: 'accueil')]
     public function listing(ManagerRegistry $doctrine): Response 
     {
         $listing = $doctrine->getManager()->getRepository(Films::class)->findAll();
 
-        return $this->render("films.html.twig", ["films" => $listing]);
+        return $this->render("accueil.html.twig", ["films" => $listing]);
     }
 
     #[Route('/films/{id}', name: 'film_spec')]
@@ -132,14 +145,13 @@ class FilmController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('listingFilms');
+        return $this->redirectToRoute('accueil');
     }
 
     #[Route('/resumeFilm/{id}', name: 'resume_film')]
-    public function resume(ManagerRegistry $doctrine, $id): Response 
+    public function resume(Films $film, SeanceRepository $seanceRepository): Response 
     {
-        $film = $doctrine->getManager()->getRepository(Films::class)->find($id);
-
-        return $this->render("film/resume.html.twig", ["film" => $film]);
+        $seances = $seanceRepository->findBy(['film' => $film]);
+        return $this->render("film/resume.html.twig", ["film" => $film, "seances" => $seances]);
     }
 }

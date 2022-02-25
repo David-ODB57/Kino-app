@@ -4,7 +4,7 @@
     --color-nav: #ADC178;
     --color-bg: #A98467;
     --color-title: #EFD3D7;
-    --color-sub-title: black;
+    --color-sub-title: #89ff00;
     --color-navbar-link: #6C584C;
     --color-navLink: #ADC178;
     --first-gradient: linear-gradient(235deg, #89ff00, #010615, #00bcd4);
@@ -143,6 +143,11 @@ h1 {
     color: var(--color-title);
     text-decoration: underline;
     text-transform: uppercase;
+    text-align: center;
+}
+
+h2 {
+    color: var(--color-sub-title);
     text-align: center;
 }
 
@@ -329,4 +334,26 @@ th {
     border-color: #ff005e;
     background: #ff005e;
     color: #000;
+}
+
+.edit-tools {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.seances {
+    display: flex;
+    flex-direction: column;
+}
+
+.seances span {
+    color: #2196f3;
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.seances .salle {
+    color: #89ff00;
 }

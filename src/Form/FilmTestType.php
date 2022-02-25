@@ -16,7 +16,7 @@ class FilmTestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, ["required" => false])
+            ->add('title', TextType::class)
             ->add('director', TextType::class)
             ->add('gender', TextType::class)
             ->add('duree', NumberType::class)
