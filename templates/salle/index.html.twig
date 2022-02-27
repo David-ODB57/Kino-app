@@ -4,13 +4,12 @@
 
 {% block body %}
     <h1>Listing des Salles</h1>
-
+<div class="table-container">
     <table class="table">
         <thead>
             <tr>
                 <th>Salle</th>
                 <th>NbPlaces</th>
-                <th>Séances</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,8 +18,6 @@
             <tr>
                 <td>{{ salle.numero }}</td>
                 <td>{{ salle.nbPlaces }}</td>
-                <td></td>
-                {# {{ seance.film }} #}
                 <td>
                     <a href="{{ path('salle_show', {'id': salle.id}) }}">Voir</a>
                     <a href="{{ path('salle_edit', {'id': salle.id}) }}">Editer</a>
@@ -35,4 +32,5 @@
     </table>
 
     <a href="{{ path('salle_new') }}">Créer une nouvelle salle</a>
+</div>
 {% endblock %}
