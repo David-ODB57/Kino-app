@@ -50,6 +50,8 @@ class Films
     public function __construct()
     {
         $this->seances = new ArrayCollection();
+        $this->status = 'disponible';
+        $this->image = 'noimg.png';
     }
 
     public function getId(): ?int
