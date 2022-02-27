@@ -33,8 +33,8 @@ class FilmController extends AbstractController
             ->add("description", TextareaType::class)
             ->add('status', ChoiceType::class, [
                 'choices'  => [
-                    'Dispo' => true,
-                    'Non disponible' => false,
+                    'Disponible' => 'disponible',
+                    'Non disponible' => 'non disponible',
                 ],
             ])
             ->add("image", TextType::class)
@@ -43,40 +43,38 @@ class FilmController extends AbstractController
 
         $form->handleRequest($req);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            
+
             $film = $form->getData();
             $film->setCreatedAt(new DateTimeImmutable("now"));
             $film->setUpdatedAt(new DateTime("now"));
             $entityManager = $doctrine->getManager();
             $entityManager->persist($film);
             $entityManager->flush();
-            
+
             return $this->redirectToRoute('accueil');
         }
         $isEditor = false;
 
         return $this->render('film/create.html.twig', ['form' => $form->createView(), 'isEditor' => $isEditor]);
     }
-    // 
-    // UPDATE FILM
-    // 
+
     #[Route('/updateFilm/{id}', name: 'update_film')]
     public function updateFilm(Request $req, ManagerRegistry $doctrine, $id = null)
     {
         $entityManager = $doctrine->getManager();
 
-        if(isset($id)) {
+        if (isset($id)) {
 
             $film = $entityManager->getRepository(Films::class)->find($id);
 
-            if(!isset($film)) {
+            if (!isset($film)) {
                 return $this->redirectToRoute('accueil');
             }
 
             $isEditor = true;
-        } else  {
+        } else {
             $film = new Films;
         }
 
@@ -98,10 +96,10 @@ class FilmController extends AbstractController
 
         $form->handleRequest($req);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $film = $form->getData();
-            
+
             $entityManager->persist($film);
             $entityManager->flush();
 
@@ -112,35 +110,21 @@ class FilmController extends AbstractController
     }
 
     #[Route('/', name: 'accueil')]
-    public function listing(ManagerRegistry $doctrine): Response 
+    public function listing(ManagerRegistry $doctrine): Response
     {
         $listing = $doctrine->getManager()->getRepository(Films::class)->findAll();
 
         return $this->render("accueil.html.twig", ["films" => $listing]);
     }
 
-    #[Route('/films/{id}', name: 'film_spec')]
-    public function showFilm(ManagerRegistry $doctrine, int $id): Response
-    {
-        $film = $doctrine->getRepository(Films::class)->find($id);
-
-        if (!$film) {
-            throw $this->createNotFoundException(
-                "Le film ".$id." n'est pas disponible"
-            );
-        }
-
-        return new Response('Check out this great product: '.$film->getName());
-    }
-
     #[Route('/deleteFilm/{id}', name: 'delete_film')]
-    public function delete(ManagerRegistry $doctrine, $id): Response 
+    public function delete(ManagerRegistry $doctrine, $id): Response
     {
         $entityManager = $doctrine->getManager();
 
         $film = $entityManager->getRepository(Films::class)->find($id);
 
-        if(isset($film)) {
+        if (isset($film)) {
             $entityManager->remove($film);
             $entityManager->flush();
         }
@@ -149,9 +133,17 @@ class FilmController extends AbstractController
     }
 
     #[Route('/resumeFilm/{id}', name: 'resume_film')]
-    public function resume(Films $film, SeanceRepository $seanceRepository): Response 
+    public function resume(Films $film, SeanceRepository $seanceRepository): Response
     {
         $seances = $seanceRepository->findBy(['film' => $film]);
         return $this->render("film/resume.html.twig", ["film" => $film, "seances" => $seances]);
+    }
+
+    #[Route('/showListFilms', name: 'show_films')]
+    public function showFilms(ManagerRegistry $doctrine): Response
+    {
+        $films = $doctrine->getManager()->getRepository(Films::class)->findAll();
+
+        return $this->render("film/show.html.twig", ["films" => $films]);
     }
 }

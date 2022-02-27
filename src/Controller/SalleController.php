@@ -16,11 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class SalleController extends AbstractController
 {
     #[Route('/', name: 'salle_index', methods: ['GET'])]
-    public function index(SalleRepository $salleRepository, SeanceRepository $seanceRepository): Response
+    public function index(SalleRepository $salleRepository): Response
     {
         return $this->render('salle/index.html.twig', [
-            'salles' => $salleRepository->findAll(),
-            'seance' => $seanceRepository->findAll(),
+            'salles' => $salleRepository->findAll()
         ]);
     }
 
@@ -73,7 +72,7 @@ class SalleController extends AbstractController
     #[Route('/{id}', name: 'salle_delete', methods: ['POST'])]
     public function delete(Request $request, Salle $salle, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$salle->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $salle->getId(), $request->request->get('_token'))) {
             $entityManager->remove($salle);
             $entityManager->flush();
         }
