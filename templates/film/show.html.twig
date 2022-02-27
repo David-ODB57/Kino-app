@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Disponibilité des films{% endblock %}
+
+{% block body %}
+    <h1>Disponibilité des films</h1>
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Film</th>
+                    <th>Status</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for film in films %}
+                {% if film.status == 'non disponible' %}
+                <tr class='unavailable'>
+                    <td>{{ film.title  }}</td>
+                    <td>{{ film.status  }}</td>
+                    <td>
+                        <a href="{{ path('resume_film', {'id': film.id}) }}">voir</a>
+                        <a href="{{ path('update_film', {'id': film.id}) }}">editer</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>{{ film.title  }}</td>
+                    <td>{{ film.status  }}</td>
+                    <td>
+                        <a href="{{ path('resume_film', {'id': film.id}) }}">voir</a>
+                        <a href="{{ path('update_film', {'id': film.id}) }}">editer</a>
+                    </td>
+                </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td colspan="6">pas d'enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

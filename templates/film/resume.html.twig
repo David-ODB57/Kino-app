@@ -3,8 +3,8 @@
 {% block title %}Synopsis{% endblock %}
 
  {% block body %}
-<h1>Synopsis</h1>
-<div class="container">
+<h1>Fiche Film</h1>
+<div class="single-card-container">
     <div id="resume">
         {% if film|length == 0 %}
             Pas d'info disponible.
@@ -15,17 +15,39 @@
         </div>
         <div class="content">
             <h2>{{ film.title }}</h2>
-            <span>Director: {{ film.director }}</span>
-            <span>Genre: {{ film.gender }}</span>
-            <span>Synopsis: </span>
-            <p>{{ film.description }}</p>
+            <div>
+                <span class="title">Director:</span>
+                <span>{{ film.director }}</span>
+            </div>
+            <div>
+                <span class="title">Genre:</span>
+                <span>{{ film.gender }}</span>
+            </div>
+            <div>
+                <span class="title">Synopsis: </span>
+                <p>{{ film.description }}</p>
+            </div>
         </div>
         <div class="seances">
+            {% if seances|length == 0 %}
+            <div class="alert-message">
+                <span class="alert">Aucune séances de programmées.</span>
+                <a href="{{ path('seance_new') }}">Créer une séance pour ce film</a>
+            </div>
+            {% endif %}
+            
             {% for seance in seances %}
-                <span><u>Seance:</u> {{ seance.dateDebut|date('Y-m-d H:i') }}</span>
+            <div>
+                <span class="title"><u>Seance :</u></span>
+                <span class="time">{{ seance.dateDebut|date('d-m-y | H:i') }}</span>
                 <span class="salle">Salle {{ seance.salle.id }}</span>
+            </div>
             {% endfor %}
         </div>
     </div>
 </div>
- {% endblock %}
+<div class="links">
+    <a href="{{ path('accueil') }}">Retour à l'accueil</a>
+    <a href="{{ path('seance_new') }}">Ajouter une séance</a>
+</div>
+{% endblock %}
