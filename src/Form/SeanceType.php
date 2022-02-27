@@ -18,11 +18,11 @@ class SeanceType extends AbstractType
     {
         $builder
             ->add('film', EntityType::class, [
-                "class" => Films::class, 
+                "class" => Films::class,
                 "choice_label" => "title"
             ])
             ->add('dateDebut', DateTimeType::class, ["widget" => "single_text"])
-            ->add('langue',ChoiceType::class, [
+            ->add('langue', ChoiceType::class, [
                 'choices' => [
                     'Version Française - VF' => 'VF',
                     'Version Originale - VO' => 'VO',
@@ -30,8 +30,8 @@ class SeanceType extends AbstractType
                 ]
             ])
             ->add('salle', EntityType::class, [
-                "class" => Salle::class, 
-                "choice_label" => "id"
+                "class" => Salle::class,
+                "choice_label" => "numero"
             ]);
     }
 

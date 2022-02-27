@@ -21,6 +21,7 @@ class FilmTestType extends AbstractType
             ->add('gender', TextType::class)
             ->add('duree', NumberType::class)
             ->add('description', TextareaType::class)
+            ->add('status', TextType::class)
             ->add('image', TextType::class)
             ->add("save", SubmitType::class);
     }
